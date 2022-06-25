@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Legged Locomotion in Challenging Terrain using Egocentric Vision">
+  <meta name="keywords" content="Locomotion, Biomechanics, Energetics, Reinforcement Learning, Emergent Behaviors, Stairs, Vision">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Legged Locomotion in Challenging Terrain using Egocentric Vision</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link rel="icon" href="./favicon.ico?">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body no-bottom-padding">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Legged Locomotion in Challenging Terrains <br> using Egocentric Vision</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Anonymous CoRL 2022 Submission
+            </span>
+          </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-bottom: 0">
+  <div class="container">
+    <div id="method_video" class="columns is-centered has-text-centered">
+      <div class="column is-two-thirds no-bottom-padding">
+        <video controls src="./supp-video-anon.mp4" style="border: 1px solid #bbb; border-radius: 10px; width: 100%;">
+      </div>
+    </div>
+
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-two-thirds">
+        <h2 class="title is-2">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Animals are capable of precise and agile locomotion using vision. Replicating this ability has been a long-standing goal in robotics. The traditional approach has been to decompose this problem into elevation mapping and foothold planning phases. The elevation mapping, however, is susceptible to failure and large noise artifacts, requires specialized hardware, and is biologically implausible. In this paper, we present the first end-to-end locomotion system capable of traversing stairs, curbs, stepping stones, and gaps. We show this result on a medium-sized quadruped robot using a single front-facing depth camera. The small size of the robot necessitates discovering specialized gait patterns not seen elsewhere. The egocentric camera requires the policy to remember past information to estimate the terrain under its hind feet. We train our policy in simulation. Training has two phases - first, we train a policy using reinforcement learning with a cheap-to-compute variant of depth image and then in phase 2 distill it into the final policy that uses depth using supervised learning. The resulting policy transfers to the real world without any fine-tuning and can traverse a large variety of terrain while being robust to perturbations like pushes, slippery surfaces, and rocky terrain.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--/ Paper video. -->
+  <br/>
+  <br/>
+  
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-2" style="text-align: center; padding-bottom: 10px;">Stepping Stones and Gaps</h2>
+        <tr>
+          <td>
+              <h2 class="subtitle">
+                  The robot is able to step over bar stools in various configurations and adapt the step size to cross large gaps. Since there is no vision near the hind feet, the robot must remember the location of the bar stools and place hind feet accordingly. 
+              </h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/stepping_stones/long-1_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/stepping_stones/8_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/stepping_stones/long-2_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/stepping_stones/9_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </div> 
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-2" style="text-align: center; padding-bottom: 10px;">Stairs and Curbs</h2>
+        <tr>
+          <td>
+              <h2 class="subtitle">
+                  The robot is able to climb stairs upto 24cm high and only 30cm wide while climbing curbs upto 26cm high. Our policy generalizes to different stairs and curbs under a variety of lighting conditions. On out-of-distribution stairs and curbs, the robot initially gets stuck but is eventually able to traverse them using an emergent climbing up behavior.   
+              </h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/real-world-2/hard_wild_stairs_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/real-world-1/high_curb_concrete_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/real-world-2/good-IMG_0020_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/real-world-2/IMG_1653_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/real-world-1/0_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/real-world-2/3_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/real-world-2/1_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/real-world-2/2_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+            <br>
+          </td>
+        </tr>
+      </div> 
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-2" style="text-align: center; padding-bottom: 10px;">Unstructured Terrain</h2>
+        <tr>
+          <td>
+              <h2 class="subtitle">
+                  The robot can traverse unstructured terrain that does not fall into one of the categories it is trained on. This shows the generalization capabilities of our system.      
+              </h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/real-world-1/rock_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/real-world-2/muddy_slope_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/real-world-1/1_compressed.MP4" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/real-world-1/2_compressed.MP4" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/night/dark-grassy-slope_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/real-world-2/abandoned_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </div> 
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-2" style="text-align: center; padding-bottom: 10px;">Locomotion in the dark</h2>
+        <tr>
+          <td>
+              <h2 class="subtitle">
+                  The depth camera projects a pattern using infrared light and is able to accurately estimate depth even when there is little to no ambient light. 
+              </h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="col">
+                  <video playsinline autoplay loop muted src="./resources/night/0_compressed.MOV" width="100%"
+                         style="border-radius:10px; "></video>
+              </div>
+              <div class="col">
+                <video playsinline autoplay loop muted src="./resources/night/1_compressed.MOV" width="100%"
+                       style="border-radius:10px; "></video>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </div> 
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-2" style="text-align: center; padding-bottom: 10px;">Robustness</h2>
+        <tr>
+          <td>
+              <h2 class="subtitle">
+                The trained policy is robust to large forces (5kg weight throws from large height) and slippery surfaces (water poured on plastic sheet). 
+              </h2>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="columns is-centered">
+                <div class="column is-half">
+                    <video playsinline autoplay loop muted src="./resources/real-world-2/robustness.MOV" width="100%"
+                          style="border-radius:10px; "></video>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </div> 
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-2" style="text-align: center; padding-bottom: 10px;">Failure Cases</h2>
+        <tr>
+          <td>
+            <div class="row">
+              <div class="columns is-centered">
+                <div class="col">
+                    <h2 class="subtitle">
+                      Robot falls from a high curb since the dip is too large and its extent cannot be seen from the front camera. There is no top-down camera and the front camera points straight ahead.    
+                    </h2>
+                    <video playsinline autoplay loop muted src="./resources/failure/failure_curb.mp4" width="100%"
+                          style="border-radius:10px; "></video>
+                </div>
+                <div class="col">
+                  <h2 class="subtitle">
+                    Rear leg steps in gap due to error in retrieving position of stool from memory (camera can only see stools in the front). This is the only failed run we observed among 16 runs on different stool configurations. 
+                  </h2>
+                  <video playsinline autoplay loop muted src="./resources/failure/failure_stepping_stones.mp4" width="100%"
+                        style="border-radius:10px; "></video>
+                </div>
+              </div>
+            </div>
+            <br>
+          </td>
+        </tr>
+      </div> 
+    </div>
+  </div>
+</section>
+</body>
+</html>
